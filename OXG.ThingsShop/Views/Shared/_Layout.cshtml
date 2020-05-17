@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - OXG.ThingsShop</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 </head>
 <body>
     <header>
@@ -21,22 +22,25 @@
                     <ul class="navbar-nav">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" >Привет, @User.Identity.Name!</a>
-                            </li>
-                            <li class="nav-item">
-                                <form class="form-inline" >
-                                    <button type="submit" class="nav-link btn btn-link text-dark">Выход</button>
-                                </form>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" data-toggle="dropdown" href="https://bootswatch.com/superhero/#" role="button" aria-haspopup="true" aria-expanded="false">Привет, @User.Identity.Name!</a>
+                                <div class="dropdown-menu" style="">
+                                    @if (User.IsInRole("Администратор"))
+                                    {
+                                        <a asp-action="Index" asp-controller="Roles" class="nav-link btn btn-link text-dark dropdown-item">Управление ролями</a>
+                                    }
+                                    <div class="dropdown-divider"></div>
+                                    <a asp-action="Logout" asp-controller="Account" class="nav-link btn btn-link text-dark dropdown-item">Выход</a>
+                                </div>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" data-toggle="modal" data-target="#exampleModal" id="registerBtn">Регистрация</a>
+                                <a href="#" class="nav-link text-dark" data-toggle="modal" data-target="#exampleModal" id="registerBtn">Регистрация</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" data-toggle="modal" data-target="#exampleModal" id="loginBtn">Вход</a>
+                                <a href="#" class="nav-link text-dark" data-toggle="modal" data-target="#exampleModal" id="loginBtn">Вход</a>
                             </li>
                         }
                     </ul>
@@ -55,6 +59,14 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-dismissible alert-warning">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <h4 class="alert-heading">!</h4>
+                    <p class="mb-0">ViewBag.Message</p>
+                </div>
+            }
             @RenderBody()
         </main>
     </div>

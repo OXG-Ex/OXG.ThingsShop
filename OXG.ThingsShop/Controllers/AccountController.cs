@@ -41,10 +41,11 @@ namespace OXG.ThingsShop.Controllers
                     foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
+                        ViewBag.Message += $"{error.Description} \n ";
                     }
                 }
             }
-            return View(model);
+            return RedirectToAction("Index","Home");
         }
 
 
@@ -54,26 +55,21 @@ namespace OXG.ThingsShop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVM model)
         {
+            //TODO:проверка email/login
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, false);
-                if (result.Succeeded)
+                if (!result.Succeeded)
                 {
-                    
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                    ViewBag.Message = "Неправильный логин и (или) пароль";
                 }
             }
-            return View(model);
+            return RedirectToAction("Index","Home");
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            // удаляем аутентификационные куки
+            // удаление аутентификационных куки
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
