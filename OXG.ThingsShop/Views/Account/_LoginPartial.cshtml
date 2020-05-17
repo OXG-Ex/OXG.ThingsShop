@@ -1,0 +1,34 @@
+﻿@model OXG.ThingsShop.Models.ViewModels.LoginVM
+
+@{Layout = null;}
+
+<link rel="stylesheet" href="~/css/LoginRegister.css" />
+
+<div class="tab" role="tabpanel">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">АВТОРИЗАЦИЯ</a></li>
+    </ul>
+    <div class="tab-content tabs">
+        <div role="tabpanel" class="tab-pane fade in active show" id="Section2">
+            <form class="form-horizontal" asp-action="Login" asp-controller="Account">
+                <div class="form-group">
+                    <label for="userName">Имя пользователя или email</label>
+                    <input asp-for="Login" class="form-control" id="userName">
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input asp-for="Password" class="form-control" id="password">
+                </div>
+                <div class="form-group custom-checkbox">
+                    <label for="remember">
+                        Запомнить меня
+                        <input class="form-check" asp-for="RememberMe" id="remember">
+                    </label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">ВХОД</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
