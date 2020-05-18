@@ -42,10 +42,11 @@ namespace OXG.ThingsShop.Controllers
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                         ViewBag.Message += $"{error.Description} \n ";
+                        View("Views/Home/Index.cshtml");
                     }
                 }
             }
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
 
@@ -62,6 +63,7 @@ namespace OXG.ThingsShop.Controllers
                 if (!result.Succeeded)
                 {
                     ViewBag.Message = "Неправильный логин и (или) пароль";
+                    View("Views/Home/Index.cshtml");
                 }
             }
             return RedirectToAction("Index","Home");

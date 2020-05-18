@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using OXG.ThingsShop.Models;
 
 namespace OXG.ThingsShop.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly StoreContext _context;
@@ -26,6 +28,7 @@ namespace OXG.ThingsShop.Controllers
         }
 
         // GET: Products/Details/5
+        [Authorize(Roles = "Просмотр, Администратор")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +47,7 @@ namespace OXG.ThingsShop.Controllers
         }
 
         // GET: Products/Create
+        [Authorize(Roles = "Создание, Администратор")]
         public IActionResult Create()
         {
             return View();
@@ -66,6 +70,7 @@ namespace OXG.ThingsShop.Controllers
         }
 
         // GET: Products/Edit/5
+        [Authorize(Roles = "Редактирование, Администратор")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,6 +122,7 @@ namespace OXG.ThingsShop.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize(Roles = "Удаление, Администратор")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
