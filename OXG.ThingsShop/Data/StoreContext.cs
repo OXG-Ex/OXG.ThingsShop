@@ -15,5 +15,7 @@ namespace OXG.ThingsShop.Data
         {
             Database.EnsureCreated();
         }
+
+        public DbSet<Product> Products { get; set; }
     }
 }
