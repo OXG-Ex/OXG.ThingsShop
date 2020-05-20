@@ -24,7 +24,7 @@ namespace OXG.ThingsShop.Controllers
             roleManager = _roleManager;
         }
 
-        public async Task<IActionResult> IndexAsync(string? message)
+        public async Task<IActionResult> IndexAsync(string message)
         {
             var init = new DbInitializer();
             await init.InitializeAsync(userManager,roleManager);
